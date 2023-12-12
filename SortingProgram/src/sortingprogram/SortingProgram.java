@@ -27,33 +27,29 @@ public class SortingProgram {
 
     public static void selectionSort(int[] array) {
         int minIndex;
-        boolean swap = false;
         for (int i = 0; i < array.length - 1; i++) {
             minIndex = i;
             for (int j = i + 1; j < array.length; j++) {
                 if (array[j] < array[minIndex]) {
                     minIndex = j;
-                    swap = true;
                 }
             }
-            if (swap) {
+            if (minIndex != i) {
                 swap(array, minIndex, i);
-                swap = !swap;
             }
         }
     }
 
     public static void insertionSort(int[] array) {
-        for (int i = 0; i < array.length - 1; i++) {
+        for (int i = 1; i < array.length; i++) {
             int j = i;
-            while (array[j] > array[j + 1]) {
-                swap(array, j, j + 1);
-                if (j != 0) {
-                    j--;
-                }
+            while (j > 0 && array[j] < array[j - 1]) {
+                swap(array, j, j - 1);
+                j--;
             }
         }
     }
+
 //
 //    public static int[] myQuickSort(int[] array) {
 //        int pivot = array[array.length - 1];
@@ -85,7 +81,6 @@ public class SortingProgram {
 //        System.arraycopy(newRight, 0, array, newLeft.length + 1, newRight.length);
 //        return array;
 //    }
-
     public static void quickSort(int[] array, int start, int end) {
         if (start < end) {
             int pivot = array[end];
@@ -134,27 +129,6 @@ public class SortingProgram {
             afterMergeArray[n++] = Right[j++];
         }
         return afterMergeArray;
-    }
-
-    public static void swap(int[] array, int i, int j) {
-        int temp = array[j];
-        array[j] = array[i];
-        array[i] = temp;
-    }
-
-    public static void printArray(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(" " + array[i]);
-        }
-        System.out.println();
-    }
-
-    public static int[] randomArray(int n) {
-        int[] array = new int[n];
-        for (int i = 0; i < n; i++) {
-            array[i] = rd.nextInt(n);
-        }
-        return array;
     }
 
     private static void heapify(int[] array, int index, int n) {
@@ -229,12 +203,6 @@ public class SortingProgram {
         }
     }
 
-    public static void swapForArrayList(ArrayList<Integer> arrayList, int i, int j) {
-        int temp = arrayList.get(i);
-        arrayList.set(i, arrayList.get(j));
-        arrayList.set(j, temp);
-    }
-
     public static void radixSort(int[] array, int timer) {
         ArrayList<Integer>[] listBucket = new ArrayList[10];
         for (int i = 0; i < 10; i++) {
@@ -254,5 +222,32 @@ public class SortingProgram {
         if (listBucket[0].size() != array.length) {
             radixSort(array, ++timer);
         }
+    }
+
+    public static void swap(int[] array, int i, int j) {
+        int temp = array[j];
+        array[j] = array[i];
+        array[i] = temp;
+    }
+
+    public static void swapForArrayList(ArrayList<Integer> arrayList, int i, int j) {
+        int temp = arrayList.get(i);
+        arrayList.set(i, arrayList.get(j));
+        arrayList.set(j, temp);
+    }
+
+    public static void printArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(" " + array[i]);
+        }
+        System.out.println();
+    }
+
+    public static int[] randomArray(int n) {
+        int[] array = new int[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = rd.nextInt(n);
+        }
+        return array;
     }
 }
